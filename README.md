@@ -16,8 +16,6 @@ This is a collection of scripts for fresh installing several packages on various
 
 ##Run Installer
 
-**Run as root user!**
-
 ```sh
 curl -s https://raw.githubusercontent.com/emcniece/docker-rancher-install/master/platforms/ubuntu/install.sh | bash
 ```
