@@ -1,33 +1,20 @@
 #!/bin/bash
 
-# Init
-FILE="/tmp/out.$$"
-GREP="/bin/grep"
-
-# Make sure only root can run our script
-if [ "$(id -u)" != "0" ]; then
-   echo "This script must be run as root" 1>&2
-   exit 1
-fi
-
 # Docker
-apt-get update
-apt-get install -y \
-  linux-image-extra-$(uname -r) \
-  linux-image-extra-virtual
+sudo apt-get update
+sudo apt-get install -y docker.io
 
-apt-get install -y \
-  apt-transport-https \
-  ca-certificates \
-  curl \
-  software-properties-common
+# Docker-Compose
+sudo usermod -aG docker $(whoami)
+sudo apt-get -y install python-pip
+sudo pip install docker-compose
 
-curl -fsSL https://apt.dockerproject.org/gpg | sudo apt-key add -
-apt-key fingerprint 58118E89F3A912897C070ADBF76221572C52609D
-add-apt-repository \
-  "deb https://apt.dockerproject.org/repo/ \
-  ubuntu-$(lsb_release -cs) \
-  main"
+# Rancher
+docker pull rancher/server
+docker pull rancher/agent
+docker run -d -t rancher -p 8080:8080 rancher/server
 
-apt-get update
-apt-get -y install docker-engine
+# Rancher-Compose
+RCDL=$(curl -s https://api.github.com/repos/rancher/rancher-compose/releases/latest | grep browser_download_url | grep linux-amd64 | grep tar.gz | head -n 1 | cut -d '"' -f 4)
+wget -qO- $RCDL | tar xvz -C /tmp
+sudo find /tmp -name rancher-compose -exec mv -t /usr/bin {} +
