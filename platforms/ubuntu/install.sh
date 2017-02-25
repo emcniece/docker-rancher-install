@@ -34,4 +34,4 @@ echo "" &&
 echo "2. Generate API credentials for Rancher-Compose" &&
 echo "http://localhost:8080/env/1a5/api/keys" &&
 echo "" &&
-echo "3. Add API keys to ~/.profile" &&
+echo "3. Add API keys to ~/.profile"
