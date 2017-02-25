@@ -3,8 +3,8 @@
 echo "Installing Docker..." && echo "" &&
 sudo apt-get update &&
 sudo apt-get upgrade -y &&
-sudo apt-get install -y --no-install-recommends linux-image-extra-$(uname -r) linux-image-extra-virtual python-pip &&
-sudo apt-get install -y --no-install-recommends apt-transport-https ca-certificates software-properties-common libltdl7 libsystemd-journal0 &&
+sudo apt-get install -y linux-image-extra-$(uname -r) linux-image-extra-virtual python-pip &&
+sudo apt-get install -y apt-transport-https ca-certificates software-properties-common libltdl7 libsystemd-journal0 &&
 sudo apt-get -f install -y &&
 wget https://apt.dockerproject.org/repo/pool/main/d/docker-engine/docker-engine_1.13.1-0~ubuntu-trusty_amd64.deb &&
 sudo dpkg -i docker-engine_1.13.1-0~ubuntu-trusty_amd64.deb &&
