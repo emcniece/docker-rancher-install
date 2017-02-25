@@ -1,28 +1,18 @@
 #!/bin/bash
 
-# Docker
-echo "Installing Docker..."
-echo ""
-sudo apt-get update && sudo apt-get install -y docker.io python-pip &&
-echo "Installing Rancher-Compose..." &&
-echo "" &&
-RCDL=$(curl -s https://api.github.com/repos/rancher/rancher-compose/releases/latest \
-  | grep browser_download_url \
-  | grep linux-amd64 \
-  | grep tar.gz \
-  | head -n 1 \
-  | cut -d '"' -f 4) &&
+echo "Installing Docker..." && echo "" &&
+sudo apt-get update &&
+sudo apt-get install -y docker.io python-pip &&
+echo "Installing Rancher-Compose..." && echo "" &&
+RCDL=$(curl -s https://api.github.com/repos/rancher/rancher-compose/releases/latest | grep browser_download_url | grep linux-amd64 | grep tar.gz | head -n 1 | cut -d '"' -f 4) &&
 wget -qO- $RCDL | sudo tar xz -C /tmp &&
 sudo find /tmp -name rancher-compose -exec mv -t /usr/bin {} + &&
-echo "Adding Aliases..." &&
-echo "" &&
+echo "Adding Aliases..." && echo "" &&
 curl https://raw.githubusercontent.com/emcniece/docker-rancher-install/master/aliases.txt >> ~/.profile &&
-echo "Pulling Rancher..." &&
-echo "" &&
+echo "Pulling Rancher..." && echo "" &&
 docker pull rancher/server &&
 docker pull rancher/agent &&
-echo "Installing Docker-Compose..." &&
-echo "" &&
+echo "Installing Docker-Compose..." && echo "" &&
 sudo usermod -aG docker $(whoami) &&
 exec su -l $USER &&
 sudo pip install docker-compose &&
