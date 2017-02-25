@@ -1,0 +1,13 @@
+alias dps='docker ps -a --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}"'
+alias dlog='docker logs -f'
+
+# Docker Cleanup
+alias dclean_cont="docker ps -q --filter "status=exited" | xargs docker rm"
+alias dclean_img="docker images -qf 'dangling=true' | xargs docker rmi"
+alias dclean_vol="docker volume ls -qf 'dangling=true' | xargs docker volume rm"
+alias dclean_all="dclean_cont && dclean_img && dclean_vol"
+
+# Rancher Compose config
+export RANCHER_URL=http://[THIS.BOXS.IP.ADDRESS]:8080/
+export RANCHER_ACCESS_KEY=[KEY_FROM_RANCHER_API]
+export RANCHER_SECRET_KEY=[SECRET_FROM_RANCHER_API]
