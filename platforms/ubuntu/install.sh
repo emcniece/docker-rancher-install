@@ -3,8 +3,7 @@
 # Docker
 echo "Installing Docker..."
 echo ""
-sudo apt-get update
-sudo apt-get install -y docker.io
+sudo apt-get update && sudo apt-get install -y docker.io python-pip
 
 # Rancher-Compose
 echo "Installing Rancher-Compose..."
@@ -50,7 +49,6 @@ echo "Installing Docker-Compose..."
 echo ""
 sudo usermod -aG docker $(whoami)
 exec su -l $USER
-sudo apt-get -y install python-pip
 sudo pip install docker-compose
 
 # Summary
